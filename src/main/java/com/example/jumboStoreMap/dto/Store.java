@@ -6,19 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProductPosition {
+public class Store {
 
     @JsonProperty
-    private String productName;
+    private Integer id;
 
     @JsonProperty
-    private Integer bay;
-
-    @JsonProperty
-    private Integer box;
-
+    private List<ProductPosition> productPositionList;
 }

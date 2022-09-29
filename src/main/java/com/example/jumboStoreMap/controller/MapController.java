@@ -10,32 +10,21 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/findProduct", produces = APPLICATION_JSON_VALUE)
+@Slf4j
 @RequiredArgsConstructor
 public class MapController {
 
-    @GetMapping()
-    @Operation(
-            summary = "Find product",
-            requestBody =
-            @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    content =
-                    @Content(
-                            schema = @Schema(implementation = ProductPosition.class),
-                            examples = {
-                                    @ExampleObject(
-                                            name = "Request",
-                                            summary = "Request",
-                                            description = "Find Product")
-                            })))
-    public List<ProductPosition> findProduct(@RequestParam String storeId, @RequestParam String categoryName) {
-
-        return MockDB.getProductPosition(categoryName);
+    @GetMapping("product")
+    public List<ProductPosition> findProduct(@RequestParam("id") Integer storeId,
+                                             @RequestParam("product") String productName) {
+        log.info("request " + storeId + " product : " + productName);
+        return MockDB.getProductPosition(storeId, productName);
     }
 
 
